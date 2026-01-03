@@ -18,6 +18,11 @@ export default function ServiceCard({ service }) {
           className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
           style={{ backgroundImage: `url('${imageUrl}')` }}
         ></div>
+        {service.name.toLowerCase().includes("ac") && (
+          <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur text-text-main dark:text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+            Best Seller
+          </div>
+        )}
       </div>
       <div className="p-6 flex flex-col flex-1">
         <div className="flex justify-between items-start mb-2">

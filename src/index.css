@@ -5,6 +5,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .dark .glass-nav {
+    background: rgba(17, 33, 32, 0.85);
+  }
+}
+
 @layer base {
   body {
     @apply font-body bg-background-light text-text-main antialiased selection:bg-primary/20 selection:text-primary;
