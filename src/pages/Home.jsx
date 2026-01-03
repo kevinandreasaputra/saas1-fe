@@ -1,56 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import api from "../api/axios";
-import ServiceCard from "../components/features/ServiceCard";
-import { useState, useEffect } from "react";
-
-const STATIC_SERVICES = [
-  {
-    id: "static-1",
-    name: "AC Cleaning (Offline)",
-    description: "Deep cleaning and maintenance for split AC units.",
-    price: 75000,
-    image_url:
-      "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=600",
-  },
-  {
-    id: "static-2",
-    name: "House Cleaning (Offline)",
-    description: "Professional home cleaning service for all rooms.",
-    price: 150000,
-    image_url:
-      "https://images.unsplash.com/photo-1581578731117-104f2a417954?auto=format&fit=crop&q=80&w=600",
-  },
-  {
-    id: "static-3",
-    name: "Plumbing Repair (Offline)",
-    description: "Fix leaks, unclog drains, and pipe maintenance.",
-    price: 200000,
-    image_url:
-      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=600",
-  },
-];
+import { useServices } from "../hooks/useServices";
 
 export default function Home() {
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    const fetchTopServices = async () => {
-      try {
-        const response = await api.get("/services");
-        if (response.data.status === "success") {
-          setServices(response.data.data.slice(0, 3));
-        } else {
-          throw new Error("API Error");
-        }
-      } catch (error) {
-        console.warn("API Error, using fallback data:", error);
-        setServices(STATIC_SERVICES);
-      }
-    };
-    fetchTopServices();
-  }, []);
+  const { services, loading } = useServices();
+  const popularServices = services.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-12">
@@ -119,8 +74,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.length > 0 ? (
-              services.map((service) => (
+            {popularServices.length > 0 ? (
+              popularServices.map((service) => (
                 <ServiceCard key={service.id} service={service} />
               ))
             ) : (
